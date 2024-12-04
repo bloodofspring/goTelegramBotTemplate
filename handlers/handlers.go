@@ -9,8 +9,8 @@ import (
 type Filter func(update tgbotapi.Update) bool
 
 type Callback interface {
-	run(update tgbotapi.Update) error
-	getName() string
+	Run(update tgbotapi.Update) error
+	GetName() string
 }
 
 type Handler interface {
@@ -57,7 +57,7 @@ func (h BaseHandler) checkFilters(update tgbotapi.Update) bool {
 
 func (h BaseHandler) run(update tgbotapi.Update) (bool, error) {
 	if h.checkType(update) && h.checkFilters(update) {
-		return true, h.callback.run(update)
+		return true, h.callback.Run(update)
 	}
 
 	return false, nil
@@ -87,7 +87,7 @@ type handlerProducer struct {
 	handlerType string
 }
 
-func (p handlerProducer) product(callback Callback, filters []Filter) BaseHandler {
+func (p handlerProducer) Product(callback Callback, filters []Filter) BaseHandler {
 	return BaseHandler{
 		uuid:      uuid.New(),
 		queryType: p.handlerType,
