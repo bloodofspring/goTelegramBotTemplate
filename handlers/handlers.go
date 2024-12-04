@@ -40,7 +40,7 @@ func (h BaseHandler) checkType(update tgbotapi.Update) bool {
 	case "command":
 		return update.Message != nil && update.Message.IsCommand()
 	default:
-		fmt.Printf("WARNING! Unsupported query type: %s\n", h.queryType)
+		fmt.Printf("WARNING! Unsupported query type: %s\nYou can edit handlers in handlers.go file", h.queryType)
 		return false
 	}
 }
@@ -96,6 +96,10 @@ func (p handlerProducer) Product(callback Callback, filters []Filter) BaseHandle
 	}
 }
 
-var MessageHandler = handlerProducer{"message"}
-var CommandHandler = handlerProducer{"command"}
-var CallbackQueryHandler = handlerProducer{"callbackQuery"}
+const messageType = "message"
+const commandType = "command"
+const callbackQueryType = "callbackQuery"
+
+var MessageHandler = handlerProducer{messageType}
+var CommandHandler = handlerProducer{commandType}
+var CallbackQueryHandler = handlerProducer{callbackQueryType}

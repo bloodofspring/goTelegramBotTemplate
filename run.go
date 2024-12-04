@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"log"
 	"main/actions"
@@ -41,8 +40,6 @@ func main() {
 
 	updates := client.GetUpdatesChan(updateConfig)
 	for update := range updates {
-		runRes := act.HandleAll(update)
-		fmt.Println("Run results: [ID|called]")
-		fmt.Println(runRes)
+		_ = act.HandleAll(update)
 	}
 }
